@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { useNavigate, Route, Routes } from "react-router-dom";
+import { Route, useHistory } from "react-router-dom";
 import { OktaAuth, toRelativeUrl } from "@okta/okta-auth-js";
 import { Security, LoginCallback } from "@okta/okta-react";
 
@@ -13,24 +13,18 @@ const oktaAuth = new OktaAuth({
 });
 
 function AppWithRouterAccess() {
-  //change from useHistory
-  const navigate = useNavigate();
+  const history = useHistory();
 
   const restoreOriginalUri = async (_oktaAuth, originalUri) => {
-    navigate(toRelativeUrl(originalUri || "/", window.location.origin));
+    history.replace(toRelativeUrl(originalUri || "/", window.location.origin));
   };
-  //end Change
 
-  //change add routes
   return (
     <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login/callback" element={<LoginCallback />} />
-      </Routes>
+      <Route path="/" component={Home} />
+      <Route path="/login/callback" component={LoginCallback} />
     </Security>
   );
 }
-//end change
 
 export default AppWithRouterAccess;

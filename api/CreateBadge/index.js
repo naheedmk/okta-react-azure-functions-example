@@ -7,7 +7,7 @@ const profilePictureStart = [22, 48];
 const profilePictureWH = [97, 121];
 const letterStart = [250, 205];
 
-const multipart = require("parse-multipart");
+const multipart = require("parse-multipart-data");
 
 badgeTemplateUrl = "https://i.imgur.com/HjluofW.png";
 
@@ -25,10 +25,15 @@ const getAuthToken = (req) => {
   return token;
 };
 
-const drawImage = async (req, jwt) => {
+const drawImage = async (req) => {
+
+  const bodyBuffer = Buffer.from(req.body);
+  const boundary = multipart.getBoundary(req.headers["content-type"]);
+  const parts = multipart.parse(bodyBuffer, boundary); 
+
   const canvas = createCanvas(templateWH[0], templateWH[1]);
   const ctx = canvas.getContext("2d");
-  const firstLetter = jwt.claims["name"][0];
+  const firstLetter= parts.filter(r => r.name === "firstLetter")[0].data.toString();
 
   const template = await loadImage(badgeTemplateUrl);
   ctx.drawImage(template, 0, 0, templateWH[0], templateWH[1]);
@@ -36,10 +41,6 @@ const drawImage = async (req, jwt) => {
   ctx.font = "68px Calibri";
   ctx.fillStyle = "#fff";
   ctx.fillText(firstLetter, letterStart[0], letterStart[1]);
-
-  const bodyBuffer = Buffer.from(req.body);
-  const boundary = multipart.getBoundary(req.headers["content-type"]);
-  const parts = multipart.Parse(bodyBuffer, boundary);
 
   const profileImage = await loadImage(parts[0].data);
   ctx.drawImage(
@@ -53,36 +54,14 @@ const drawImage = async (req, jwt) => {
   return canvas;
 };
 
-const getNonce = (req) => {
-  const cookieParts = req.headers["cookie"].split(";");
-
-  for (let i = 0; i < cookieParts.length; i++) {
-    const p = cookieParts[i].split("=");
-
-    if (p[0].trim() === "okta-oauth-nonce") return p[1];
-  }
-};
-
 module.exports = async function (context, req) {
-  const idTokenString = getAuthToken(req);
-  const expectedClientId = "{yourClientId}";
-  const expectedNonce = getNonce(req);
-  let jwt;
+  const accessToken = getAuthToken(req);
+  const jwt = await oktaJwtVerifier.verifyAccessToken(
+    accessToken,
+    "api://default"
+  );
 
-  try {
-    jwt = await oktaJwtVerifier.verifyIdToken(
-      idTokenString,
-      expectedClientId,
-      expectedNonce
-    );
-  } catch (error) {
-    context.res = {
-      status: 403,
-    };
-    context.done();
-  }
-
-  const canvas = await drawImage(req, jwt);
+  const canvas = await drawImage(req);
 
   var stream = await canvas.pngStream();
   context.res.setHeader("Content-Type", "image/png");

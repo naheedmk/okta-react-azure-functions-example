@@ -6,6 +6,7 @@ This repository shows you how to build a Static Web App for Azure and how to add
 
 - [Node.js](https://nodejs.org/en/)
 - [Azure Account](https://azure.microsoft.com/en-us/)
+> Azure Subscription
 - [GitHub Account](https://www.github.com/)
 - [Okta CLI](https://cli.okta.com)
 > [Okta](https://developer.okta.com/) has Authentication and User Management APIs that reduce development time with instant-on, scalable user infrastructure. Okta's intuitive API and expert support make it easy for developers to authenticate, manage and secure users and roles in any application.

@@ -17,11 +17,12 @@ function Home() {
   const createBadge = async () => {
     var data = new FormData();
     data.append("file", image);
+    data.append("firstLetter", authState.idToken.claims.name[0])
 
     const resp = await fetch("api/CreateBadge", {
       method: "POST",
       headers: {
-        "okta-authorization": "Bearer " + authState.idToken.idToken,
+        "okta-authorization": "Bearer " + authState.accessToken.accessToken,
       },
       body: data,
     });
@@ -38,7 +39,7 @@ function Home() {
             <li>
               {authState?.isAuthenticated && (
                 <button
-                  class="btn btn-outline-secondary my-2 my-sm-0"
+                  className="btn btn-outline-secondary my-2 my-sm-0"
                   onClick={logout}
                 >
                   Logout
