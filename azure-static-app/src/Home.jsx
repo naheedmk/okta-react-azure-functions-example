@@ -17,6 +17,10 @@ function Home() {
   const createBadge = async () => {
     var data = new FormData();
     data.append("file", image);
+
+    // Ideally the Azure Function should call the `/userprofile` endpoint to get  
+    // the user name instead of relying on the client to send it since the client
+    // could manipulate the data
     data.append("firstLetter", authState.idToken.claims.name[0])
 
     const resp = await fetch("api/CreateBadge", {

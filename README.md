@@ -1,6 +1,6 @@
-# Create a Static Web App on Azure
+# How to Build and Deploy a Serverless React App on Azure Example
 
-This repository shows you how to build a Static Web App for Azure and how to add a Function in Azure for a serverless backend.  Please read [Create a Static Web App on Azure][blog] to see how it was created.
+This repository shows you how to build a Static Web App in React for Azure and how to add a Function in Azure for a serverless backend.  Please read [How to Build and Deploy a Serverless React App on Azure][blog] to see how it was created.
 
 **Prerequisites:**
 
@@ -10,9 +10,9 @@ This repository shows you how to build a Static Web App for Azure and how to add
 - [GitHub Account](https://www.github.com/)
 - [Okta CLI](https://cli.okta.com)
 > [Okta](https://developer.okta.com/) has Authentication and User Management APIs that reduce development time with instant-on, scalable user infrastructure. Okta's intuitive API and expert support make it easy for developers to authenticate, manage and secure users and roles in any application.
-- [Visual Studio Code]
-> [Azure Fucntions VS Code Extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
-> [Azure Static Web Apps VS Code Extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestaticwebapps)
+- [Visual Studio Code](https://code.visualstudio.com/)
+  - [Azure Fucntions VS Code Extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
+  - [Azure Static Web Apps VS Code Extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurestaticwebapps)
 
 * [Getting Started](#getting-started)
 * [Links](#links)
@@ -21,14 +21,14 @@ This repository shows you how to build a Static Web App for Azure and how to add
 
 ## Getting Started
 
-To pull this example, first create an empty github repo.  Next run the following commands:
+To pull this example, first create an empty GitHub repo.  Next run the following commands:
 
 ```bash
-git clone --bare https://github.com/nickolasfisher/okta-azure-static-web-app.git
-cd okta-azure-static-web-app
+git clone --bare https://github.com/oktadev/okta-react-azure-functions-example.git
+cd okta-react-azure-functions-example
 git push --mirror {your git repo}
 cd ..
-rm -rf okta-azure-static-web-app.git
+rm -rf okta-react-azure-functions-example.git
 ```
 
 ### Create an OIDC Application in Okta
@@ -38,7 +38,9 @@ Create a free developer account with the following command using the [Okta CLI](
 ```shell
 okta register
 ```
+
 If you already have a developer account, use `okta login` to integrate it with the Okta CLI. 
+
 Create a client application in Okta with the following command:
 
 ```shell
@@ -53,9 +55,9 @@ You will be prompted to select the following options:
 
 The application configuration will be printed in the terminal.  Note your `issuer` and your `clientId`.
 
-Replace all instances of {yourOktaIssuer} with the issuer from above.
+Replace the instances of {yourOktaDomain} with the issuer domain from above in `azure-static-app/src/AppWithRouterAccess.jsx` and `api/CreateBadge/index.js`.
 
-Replace all instances of {yourClientId} with the clientId from above.  
+Replace the instance of {yourClientId} with the clientId from above in `azure-static-app/src/AppWithRouterAccess.jsx`.  
 
 ### Deploy your application
 
@@ -64,7 +66,7 @@ In the Azure Static Web Apps Visual Studio Code extension, click on **Create Sta
 > Azure Web App name `azure-static-app`
 > GitHub repo `azure-static-app`
 > Commit Message `initial commit`
-> Region - Select the region closested to you
+> Region - Select the region closest to you
 > Framework - React
 > root of your app `azure-static-app`
 > root of your api `api`

@@ -14,7 +14,7 @@ badgeTemplateUrl = "https://i.imgur.com/HjluofW.png";
 const OktaJwtVerifier = require("@okta/jwt-verifier");
 
 const oktaJwtVerifier = new OktaJwtVerifier({
-  issuer: "{yourOktaIssuer}",
+  issuer: "https://{yourOktaDomain}/oauth2/default",
 });
 
 const getAuthToken = (req) => {
@@ -33,6 +33,9 @@ const drawImage = async (req) => {
 
   const canvas = createCanvas(templateWH[0], templateWH[1]);
   const ctx = canvas.getContext("2d");
+
+  // Ideally this Azure Function should call the `/userprofile` endpoint to get  
+  // the user name instead of relying on the client to send it
   const firstLetter= parts.filter(r => r.name === "firstLetter")[0].data.toString();
 
   const template = await loadImage(badgeTemplateUrl);
