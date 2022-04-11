@@ -9,7 +9,7 @@ const letterStart = [250, 205];
 
 const multipart = require("parse-multipart-data");
 
-badgeTemplateUrl = "https://i.imgur.com/HjluofW.png";
+badgeTemplateUrl = "https://i.imgur.com/50dOBYK.png";
 
 const OktaJwtVerifier = require("@okta/jwt-verifier");
 
