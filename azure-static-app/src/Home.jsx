@@ -55,7 +55,7 @@ function Home() {
           </ul>
         </nav>
 
-        <h1 className="cover-heading">Create your Men In Black badge</h1>
+        <h1 className="cover-heading">Create your Intergalactic Mining Federation badge</h1>
 
         {!authState?.isAuthenticated && (
           <div>
@@ -81,7 +81,7 @@ function Home() {
             </button>
             <br />
             {display && (
-              <img className="pt-4" alt="your MIB badge" src={display}></img>
+              <img className="pt-4" alt="your IMF badge" src={display}></img>
             )}
           </div>
         )}
