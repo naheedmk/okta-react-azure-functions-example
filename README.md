@@ -6,7 +6,7 @@ This repository shows you how to build a Static Web App in React for Azure and h
 
 - [Node.js](https://nodejs.org/en/)
 - [Azure Account](https://azure.microsoft.com/en-us/)
-> Azure Subscription
+  - Azure Subscription to use for the Azure Account
 - [GitHub Account](https://www.github.com/)
 - [Okta CLI](https://cli.okta.com)
 > [Okta](https://developer.okta.com/) has Authentication and User Management APIs that reduce development time with instant-on, scalable user infrastructure. Okta's intuitive API and expert support make it easy for developers to authenticate, manage and secure users and roles in any application.
@@ -100,4 +100,4 @@ Please post any questions as comments on the [blog post][blog], or visit our [Ok
 
 Apache 2.0, see [LICENSE](LICENSE).
 
-[blog]: https://developer.okta.com/blog/2021/xyz
+[blog]: https://developer.okta.com/blog/2022/04/13/react-azure-functions
