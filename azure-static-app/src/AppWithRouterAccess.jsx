@@ -7,8 +7,8 @@ import { Security, LoginCallback } from "@okta/okta-react";
 import Home from "./Home";
 
 const oktaAuth = new OktaAuth({
-  issuer: "https://{yourOktaDomain}/oauth2/default",
-  clientId: "{yourClientId}",
+  issuer: "https://trial-9343988.okta.com/oauth2/default",
+  clientId: "0oakkm8zhlwgBfHSr697",
   redirectUri: window.location.origin + "/login/callback",
 });
 
